@@ -2,9 +2,8 @@ import * as bcrypt from 'bcryptjs';
 import { paginate, PaginateQuery, Paginated } from 'nestjs-paginate';
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { DeleteResult, Repository } from 'typeorm';
-import { User } from './entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto, UpdateUserDto, UserRoles } from '@project/shared-types';
+import { CreateUserDto, UpdateUserDto, UserRoles, User } from '@project/shared-types';
 import { EncryptionOptions, PaginationOptions } from '../common/general';
 
 @Injectable()

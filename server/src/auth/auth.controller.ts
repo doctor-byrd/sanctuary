@@ -2,8 +2,7 @@ import { Body, Controller, Post, Get, Req, UseGuards } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt.guard';
-import { CreateUserDto, LoginUserDto, ForgotPasswordDto } from '@project/shared-types';
-import { User } from '../users/entities/user.entity';
+import { CreateUserDto, LoginUserDto, ForgotPasswordDto, User } from '@project/shared-types';
 
 @Controller('auth')
 export class AuthController {

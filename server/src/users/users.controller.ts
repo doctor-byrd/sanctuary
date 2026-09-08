@@ -5,8 +5,7 @@ import { Paginate, type PaginateQuery, Paginated } from 'nestjs-paginate';
 import { JwtAuthGuard } from '../auth/jwt.guard';
 import { Roles } from '../auth/roles.decorator';
 import { RolesGuard } from '../auth/roles.guard';
-import { CreateUserDto, UpdateUserDto, UserRoles } from '@project/shared-types';
-import { User } from './entities/user.entity';
+import { CreateUserDto, UpdateUserDto, User, UserRoles } from '@project/shared-types';
 
 
 @Controller('users')

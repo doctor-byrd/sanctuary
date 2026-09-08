@@ -1,5 +1,6 @@
-import { UserRoles } from "@project/shared-types";
+import { UserRoles } from "./shared-types";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+
 
 @Entity({ name: 'users' })
 export class User {
