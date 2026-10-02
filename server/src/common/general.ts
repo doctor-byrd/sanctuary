@@ -52,3 +52,12 @@ export const AuthOptions = {
     ACCESS_TOKEN_EXPIRY: '1d',
 } as const
 
+// Default S3 options, uses MinIO
+export const DevS3Options = {
+    ENDPOINT: 'localhost',
+    PORT: 9000,
+    ACCESS_KEY: 'dev_minio_admin',
+    SECRET_KEY: 'dev_minio_password',
+    SSL: false,
+    BUCKET_NAME: 'hub-assets'
+} as const

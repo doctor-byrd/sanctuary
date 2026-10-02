@@ -12,8 +12,9 @@ import { DataSource } from 'typeorm';
 import { environment } from '../common/environment';
 import { AuthModule } from '../auth/auth.module';
 import { UsersModule } from '../users/users.module';
+import { CoreModule } from '../core/core.module';
+import { StorageModule } from '../storage/storage.module';
 import { DatabaseOptions, CoreJobActions, RateLimitDefaultOptions } from '../common/general';
-
 
 @Module({
   imports: [
@@ -47,6 +48,8 @@ import { DatabaseOptions, CoreJobActions, RateLimitDefaultOptions } from '../com
     // Feature Modules & Configurations
     UsersModule,
     AuthModule,
+    CoreModule,
+    StorageModule,
   ],
   controllers: [AppController],
   providers: [
