@@ -162,3 +162,9 @@ On first setup be sure to connect to the dev db using the information specified 
 - Default Port: `5432`
 - Default User: `dev_user`
 - Default Password: `dev_password`
+
+Default Object Storage Admin runs on port `9001`
+- Default User: `storage_admin`
+- Default Pasword: `storage_secure_password`
+
+Nest application assumes default bucket `hub-assets` exists so be sure to create it in Object Storage Admin interface before uploading assets.
