@@ -29,7 +29,7 @@ services:
       - redis_data:/data
 
   storage:
-    image: minio/minio:RELEASE.2025-10-15T17-29-55Z
+    image: alpine/minio:RELEASE.2025-10-15T17-29-55Z
     container_name: local-object-storage
     restart: unless-stopped
     ports:
