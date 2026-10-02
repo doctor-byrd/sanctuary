@@ -13,7 +13,6 @@ export enum CoreJobActions {
   SEND_NOTIFICATION = 'send-notification',
   SEND_EMAIL = 'send-email',
   SET_CONFIGURATION = 'set-configuration',
-  SET_IDEMPOTENCY = 'set-idempotency',
 }
 
 /**

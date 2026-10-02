@@ -21,12 +21,6 @@ export enum BullMQOptions {
     REMOVE_ON_FAIL_COUNT = 5000,
 }
 
-// Define core job actions
-export enum CoreJobActions {
-    SEND_NOTIFICATION = 'send-notification',
-    SEND_EMAIL = 'send-email',
-}
-
 // Define encryption options
 export enum EncryptionOptions {
     SALT_ROUNDS = 10,

@@ -14,7 +14,8 @@ import { AuthModule } from '../auth/auth.module';
 import { UsersModule } from '../users/users.module';
 import { CoreModule } from '../core/core.module';
 import { StorageModule } from '../storage/storage.module';
-import { DatabaseOptions, CoreJobActions, RateLimitDefaultOptions } from '../common/general';
+import { DatabaseOptions, RateLimitDefaultOptions } from '../common/general';
+import { CoreJobActions } from '@project/shared-types';
 
 @Module({
   imports: [
@@ -30,6 +31,9 @@ import { DatabaseOptions, CoreJobActions, RateLimitDefaultOptions } from '../com
     }),
     BullModule.registerQueue({
       name: CoreJobActions.SEND_NOTIFICATION,
+    }),
+    BullModule.registerQueue({
+      name: CoreJobActions.SET_CONFIGURATION,
     }),
     // Database Module & Configurations
     TypeOrmModule.forRoot({

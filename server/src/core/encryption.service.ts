@@ -41,7 +41,7 @@ export class EncryptionService {
   }
 
   /**
-   * Derive a key from the root key using PBKDF2
+   * Derive a key from the root key using PBKDF2 (Updated with maxmem configuration)
    * @param rootKey - The root secret key
    * @param salt - Salt for key derivation (public, non-secret)
    * @param length - Desired key length in bytes
@@ -49,9 +49,10 @@ export class EncryptionService {
    */
   private deriveKey(rootKey: string, salt: string, length: number): Buffer {
     return scryptSync(rootKey, salt, length, {
-      N: 32768, // CPU/memory cost parameter
-      r: 8,     // Block size
-      p: 1,     // Parallelization parameter
+      N: 32768,               // CPU/memory cost parameter
+      r: 8,                   // Block size
+      p: 1,                   // Parallelization parameter
+      maxmem: 64 * 1024 * 1024 // 64MB allocation allowance (fixes the RangeError)
     });
   }
 
@@ -145,13 +146,13 @@ export class EncryptionService {
     const wrappedDekWithTag = Buffer.from(wrappedDekB64, 'base64');
     const ciphertextWithTag = Buffer.from(ciphertextWithTagB64, 'base64');
 
-    // Extract wrapped DEK and auth tag (last 16 bytes = auth tag)
-    const wrappedDek = wrappedDekWithTag.slice(0, -16);
-    const wrapAuthTag = wrappedDekWithTag.slice(-16);
+    // Extract wrapped DEK and auth tag
+    const wrappedDek = wrappedDekWithTag.subarray(0, -16);
+    const wrapAuthTag = wrappedDekWithTag.subarray(-16);
 
-    // Extract ciphertext and auth tag (last 16 bytes = auth tag)
-    const ciphertext = ciphertextWithTag.slice(0, -16);
-    const dataAuthTag = ciphertextWithTag.slice(-16);
+    // Extract ciphertext and auth tag
+    const ciphertext = ciphertextWithTag.subarray(0, -16);
+    const dataAuthTag = ciphertextWithTag.subarray(-16);
 
     // Step 3: Unwrap DEK using KEK
     const wrapDecipher = createDecipheriv('aes-256-gcm', this.kek, wrapIv);
@@ -257,17 +258,15 @@ export class EncryptionService {
   verifyIdentity(plaintext: string, storedHash: string): boolean {
     const computedHash = this.hashIdentity(plaintext);
     
-    // Constant-time comparison to prevent timing attacks
     if (computedHash.length !== storedHash.length) {
       return false;
     }
 
-    let result = 0;
-    for (let i = 0; i < computedHash.length; i++) {
-      result |= computedHash.charCodeAt(i) ^ storedHash.charCodeAt(i);
-    }
-
-    return result === 0;
+    // Native implementation guarantees true constant-time validation
+    return require('crypto').timingSafeEqual(
+      Buffer.from(computedHash, 'utf8'),
+      Buffer.from(storedHash, 'utf8')
+    );
   }
 
   /**
