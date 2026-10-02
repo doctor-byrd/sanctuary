@@ -3,7 +3,6 @@ services:
     image: pgvector/pgvector:pg17
     container_name: nx_postgres
     restart: unless-stopped
-    # Strictly binds to host loopback interface to kill Docker DNS access
     ports:
       - "127.0.0.1:5432:5432"
     environment:
